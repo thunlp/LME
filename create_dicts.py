@@ -30,7 +30,7 @@ def load_word2vec(file_path):
 def create_id2vec(word2id,word2vec):
     unk_vec = word2vec["unk"]
     dim_of_vector = len(unk_vec)
-    num_of_tokens = len(word2id)
+    num_of_tokens = int(sys.argv[6]) # len(word2id)
     id2vec = np.zeros((num_of_tokens,dim_of_vector))
     for word,t_id in word2id.items():
         id2vec[t_id,:] = word2vec[word] if word in word2vec else unk_vec

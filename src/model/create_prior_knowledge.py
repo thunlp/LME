@@ -27,3 +27,18 @@ def create_prior(label2id_file):
     return prior
 
 
+def create_LE(label2id_file, dicts, vocab_size):
+    # initialize LE
+    id2vec = dicts["id2vec"]
+    word2id = dicts["word2id"]
+    LE = []
+    with open(label2id_file) as f:
+        for line in f:
+            a = line.split('\t')
+            word = a[1].split('/')[-1].split('_')[-1]
+            try:
+                id = word2id[word]
+            except KeyError:
+                id = vocab_size-1
+            LE.append(id2vec[id])
+    return np.array(LE, dtype=np.float32)
